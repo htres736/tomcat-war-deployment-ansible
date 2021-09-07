@@ -1,0 +1,19 @@
+---
+- name: Deploy Tomcat
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Install JDK11
+      apt: name=openjdk-11-jre state=present
+
+    - name: Install Tomcat9
+      apt: name=tomcat9 state=present
+    
+    - name: Start web server
+      service: name=tomcat9 state=started
+    
+    - name: Copy .war file to Tomcat server
+      copy: src=./target/tomcat-war-deployment.war dest=/var/lib/tomcat9/webapps/
+
+    - name: Restart tomcat
+      service: name=tomcat9 state=restarted

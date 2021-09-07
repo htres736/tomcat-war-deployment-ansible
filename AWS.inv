@@ -1,0 +1,2 @@
+[webservers]
+tomcat ansible_user=ubuntu
